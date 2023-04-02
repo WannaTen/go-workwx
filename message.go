@@ -222,14 +222,14 @@ func (c *WorkwxApp) sendMessage(
 ) error {
 	isApichatSendRequest := false
 	isCustomerServiceChatSendRequest := false
+	if recipient.isValidForCustomerServiceChatSend() {
+		isCustomerServiceChatSendRequest = true
+		goto SEND
+	}
 	if !recipient.isValidForMessageSend() {
 		if recipient.isValidForAppchatSend() {
 			// 发送给群聊
 			isApichatSendRequest = true
-			goto SEND
-		}
-		if recipient.isValidForCustomerServiceChatSend() {
-			isCustomerServiceChatSendRequest = true
 			goto SEND
 		}
 
