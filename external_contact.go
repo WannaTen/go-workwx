@@ -359,3 +359,21 @@ func (c *WorkwxApp) AddMsgTemplate(chatType ChatType, sender string, externalUse
 
 	return &resp.AddMsgTemplateDetail, nil
 }
+
+// GetKFSyncMsg 读取客服消息
+// https://developer.work.weixin.qq.com/document/path/94670
+func (c *WorkwxApp) GetKFSyncMsg(cursor, token, openKfId string, limit, voiceFormat int) (*KFSyncMsgDetail, error) {
+	msg, err := c.execKFSyncMsg(reqKFSyncMsgContact{
+		KFSyncMsgContact{
+			Cursor:      cursor,
+			Token:       token,
+			Limit:       limit,
+			VoiceFormat: voiceFormat,
+			OpenKfid:    openKfId,
+		},
+	})
+	if err != nil {
+		return nil, err
+	}
+	return &msg.KFSyncMsgDetail, nil
+}

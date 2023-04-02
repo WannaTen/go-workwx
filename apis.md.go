@@ -701,3 +701,16 @@ func (c *WorkwxApp) execAddMsgTemplate(req reqAddMsgTemplateExternalContact) (re
 
 	return resp, nil
 }
+
+func (c *WorkwxApp) execKFSyncMsg(req reqKFSyncMsgContact) (respKFSyncMsgContact, error) {
+	var resp respKFSyncMsgContact
+	err := c.executeQyapiJSONPost("/cgi-bin/kf/sync_msg", req, &resp, true)
+	if err != nil {
+		return respKFSyncMsgContact{}, err
+	}
+	if bizErr := resp.TryIntoErr(); bizErr != nil {
+		return respKFSyncMsgContact{}, bizErr
+	}
+
+	return resp, nil
+}

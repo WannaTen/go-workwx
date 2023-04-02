@@ -1290,3 +1290,68 @@ func (x reqExternalContactAddCorpTagGroup) intoBody() ([]byte, error) {
 
 	return result, nil
 }
+
+type reqKFSyncMsgContact struct {
+	KFSyncMsgContact
+}
+
+var _ bodyer = reqKFSyncMsgContact{}
+
+func (x reqKFSyncMsgContact) intoBody() ([]byte, error) {
+	body, err := json.Marshal(x)
+	if err != nil {
+		return nil, err
+	}
+	return body, nil
+}
+
+type respKFSyncMsgContact struct {
+	respCommon
+	KFSyncMsgDetail
+}
+
+type KFSyncMsgDetail struct {
+	//下次调用带上该值，则从当前的位置继续往后拉，以实现增量拉取。
+	NextCursor string `json:"next_cursor"`
+	//是否还有更多数据。0-否；1-是。
+	HasMore int `json:"has_more"`
+	//消息列表
+	MsgList []struct {
+		//消息ID
+		Msgid string `json:"msgid"`
+		//客服帐号ID（msgtype为event，该字段不返回）
+		OpenKfid string `json:"open_kfid"`
+		//客户UserID（msgtype为event，该字段不返回）
+		ExternalUserid string `json:"external_userid"`
+		//消息发送时间
+		SendTime int64 `json:"send_time"`
+		//消息来源。3-微信客户发送的消息 4-系统推送的事件消息 5-接待人员在企业微信客户端发送的消息
+		Origin int `json:"origin"`
+		//	从企业微信给客户发消息的接待人员userid（即仅origin为5才返回；msgtype为event，该字段不返回）
+		ServicerUserid string `json:"servicer_userid"`
+		//	对不同的msgtype，有相应的结构描述，下面进一步说明
+		Msgtype string `json:"msgtype"`
+		// 当 msgtype 为 text 时，文本消息
+		Text struct {
+			Content string `json:"content"`
+			MenuId  string `json:"menu_id"`
+		} `json:"text,omitempty"`
+		// 当 msgtype 为 image 时，图片消息
+		Image struct {
+			MediaId string `json:"media_id"`
+		} `json:"image,omitempty"`
+		// 当  msgtype 为 event 时，图片消息
+		Event struct {
+			EventType      string `json:"event_type"`
+			OpenKfid       string `json:"open_kfid"`
+			ExternalUserid string `json:"external_userid"`
+			Scene          string `json:"scene"`
+			SceneParam     string `json:"scene_param"`
+			WelcomeCode    string `json:"welcome_code"`
+			WechatChannels struct {
+				Nickname string `json:"nickname"`
+				Scene    int    `json:"scene"`
+			} `json:"wechat_channels"`
+		} `json:"event,omitempty"`
+	} `json:"msg_list"`
+}

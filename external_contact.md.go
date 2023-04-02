@@ -483,3 +483,12 @@ type ExternalContactAddCorpTagGroup struct {
 	// AgentID 授权方安装的应用agentid。仅旧的第三方多应用套件需要填此参数
 	AgentID int64 `json:"agentid,omitempty"`
 }
+
+// KFSyncMsgContact 获取客户消息请求参数
+type KFSyncMsgContact struct {
+	Cursor      string `json:"cursor"`
+	Token       string `json:"token"`
+	Limit       int    `json:"limit"`
+	VoiceFormat int    `json:"voice_format"`
+	OpenKfid    string `json:"open_kfid"`
+}
