@@ -394,6 +394,20 @@ func (c *WorkwxApp) execAppchatSend(req reqMessage) (respMessageSend, error) {
 	return resp, nil
 }
 
+// execAppchatSend 应用推送消息
+func (c *WorkwxApp) execCustomerServicechatSend(req reqMessage) (respMessageSend, error) {
+	var resp respMessageSend
+	err := c.executeQyapiJSONPost("/cgi-bin/kf/send_msg", req, &resp, true)
+	if err != nil {
+		return respMessageSend{}, err
+	}
+	if bizErr := resp.TryIntoErr(); bizErr != nil {
+		return respMessageSend{}, bizErr
+	}
+
+	return resp, nil
+}
+
 // execMediaUpload 上传临时素材
 func (c *WorkwxApp) execMediaUpload(req reqMediaUpload) (respMediaUpload, error) {
 	var resp respMediaUpload

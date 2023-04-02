@@ -83,14 +83,15 @@ type respJSAPITicket struct {
 
 // reqMessage 消息发送请求
 type reqMessage struct {
-	ToUser  []string
-	ToParty []string
-	ToTag   []string
-	ChatID  string
-	AgentID int64
-	MsgType string
-	Content map[string]interface{}
-	IsSafe  bool
+	ToUser   []string
+	ToParty  []string
+	ToTag    []string
+	ChatID   string
+	OpenKfID string
+	AgentID  int64
+	MsgType  string
+	Content  map[string]interface{}
+	IsSafe   bool
 }
 
 var _ bodyer = reqMessage{}
@@ -112,7 +113,10 @@ func (x reqMessage) intoBody() ([]byte, error) {
 	obj[x.MsgType] = x.Content
 
 	// 复用这个结构体，因为是 package-private 的所以这么做没风险
-	if x.ChatID != "" {
+	if x.OpenKfID != "" {
+		obj["touser"] = strings.Join(x.ToUser, "|")
+		obj["open_kfid"] = x.OpenKfID
+	} else if x.ChatID != "" {
 		obj["chatid"] = x.ChatID
 	} else {
 		obj["touser"] = strings.Join(x.ToUser, "|")

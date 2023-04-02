@@ -10,6 +10,8 @@ type Recipient struct {
 	TagIDs []string
 	// ChatID 应用关联群聊ID，仅用于【发送消息到群聊会话】
 	ChatID string
+	// OpenKfID 仅用于【发送消息客服消息】
+	OpenKfID string
 }
 
 // isIndividualTargetsEmpty 对非群发收件人字段而言，是否全为空
@@ -48,4 +50,13 @@ func (x *Recipient) isValidForAppchatSend() bool {
 	}
 
 	return x.ChatID != ""
+}
+
+// isValidForCustomerServiceChatSend 本结构体是否对【发送消息客服消息】请求有效
+func (x *Recipient) isValidForCustomerServiceChatSend() bool {
+	if !x.isIndividualTargetsEmpty() {
+		return false
+	}
+
+	return x.OpenKfID != ""
 }

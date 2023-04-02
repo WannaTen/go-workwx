@@ -221,30 +221,40 @@ func (c *WorkwxApp) sendMessage(
 	isSafe bool,
 ) error {
 	isApichatSendRequest := false
+	isCustomerServiceChatSendRequest := false
 	if !recipient.isValidForMessageSend() {
-		if !recipient.isValidForAppchatSend() {
-			// TODO: better error
-			return errors.New("recipient invalid for message sending")
+		if recipient.isValidForAppchatSend() {
+			// 发送给群聊
+			isApichatSendRequest = true
+			goto SEND
+		}
+		if recipient.isValidForCustomerServiceChatSend() {
+			isCustomerServiceChatSendRequest = true
+			goto SEND
 		}
 
-		// 发送给群聊
-		isApichatSendRequest = true
+		// TODO: better error
+		return errors.New("recipient invalid for message sending")
 	}
+SEND:
 
 	req := reqMessage{
-		ToUser:  recipient.UserIDs,
-		ToParty: recipient.PartyIDs,
-		ToTag:   recipient.TagIDs,
-		ChatID:  recipient.ChatID,
-		AgentID: c.AgentID,
-		MsgType: msgtype,
-		Content: content,
-		IsSafe:  isSafe,
+		ToUser:   recipient.UserIDs,
+		ToParty:  recipient.PartyIDs,
+		ToTag:    recipient.TagIDs,
+		ChatID:   recipient.ChatID,
+		OpenKfID: recipient.OpenKfID,
+		AgentID:  c.AgentID,
+		MsgType:  msgtype,
+		Content:  content,
+		IsSafe:   isSafe,
 	}
 
 	var resp respMessageSend
 	var err error
-	if isApichatSendRequest {
+	if isCustomerServiceChatSendRequest {
+		resp, err = c.execCustomerServicechatSend(req)
+	} else if isApichatSendRequest {
 		resp, err = c.execAppchatSend(req)
 	} else {
 		resp, err = c.execMessageSend(req)
