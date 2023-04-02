@@ -118,6 +118,9 @@ const EventTypeAppSubscribe = "subscribe"
 // EventTypeAppUnsubscribe 应用订阅取消
 const EventTypeAppUnsubscribe = "unsubscribe"
 
+// EventTypeKFMsgOrEvent 客服消息
+const EventTypeKFMsgOrEvent = "kf_msg_or_event"
+
 // rxTextMessageSpecifics 接收的文本消息，特有字段
 type rxTextMessageSpecifics struct {
 	// Content 文本消息内容
@@ -364,6 +367,14 @@ type rxEventAppSubscribe struct {
 type rxEventAppUnsubscribe struct {
 	// EventKey 事件key
 	EventKey string `xml:"EventKey"`
+}
+
+// rxEventTypeKFMsgOrEvent 客服接收消息和客服事件
+type rxEventTypeKFMsgOrEvent struct {
+	// UserID 企业服务人员的UserID
+	Token string `xml:"Token"`
+	// ExternalUserID 外部联系人的userid，注意不是企业成员的帐号
+	OpenKfID string `xml:"OpenKfId"`
 }
 
 // rxEventUnknown 接受的事件消息，未定义的事件类型
