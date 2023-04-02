@@ -8,7 +8,7 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0
 	github.com/smartystreets/goconvey v1.7.2
 	github.com/urfave/cli/v2 v2.24.4
-	github.com/xen0n/go-workwx v1.3.1
+	github.com/whyiyhw/go-workwx v1.3.1
 	golang.org/x/net v0.8.0
 )
 
