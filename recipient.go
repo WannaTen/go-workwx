@@ -54,7 +54,7 @@ func (x *Recipient) isValidForAppchatSend() bool {
 
 // isValidForCustomerServiceChatSend 本结构体是否对【发送消息客服消息】请求有效
 func (x *Recipient) isValidForCustomerServiceChatSend() bool {
-	if !x.isIndividualTargetsEmpty() {
+	if x.isIndividualTargetsEmpty() {
 		return false
 	}
 
