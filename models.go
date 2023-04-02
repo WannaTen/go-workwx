@@ -116,6 +116,8 @@ func (x reqMessage) intoBody() ([]byte, error) {
 	if x.OpenKfID != "" {
 		obj["touser"] = strings.Join(x.ToUser, "|")
 		obj["open_kfid"] = x.OpenKfID
+		delete(obj, "agentid")
+		delete(obj, "safe")
 	} else if x.ChatID != "" {
 		obj["chatid"] = x.ChatID
 	} else {
