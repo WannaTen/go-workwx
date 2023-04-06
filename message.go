@@ -2,7 +2,6 @@ package workwx
 
 import (
 	"errors"
-	"fmt"
 )
 
 // SendTextMessage 发送文本消息
@@ -254,13 +253,10 @@ SEND:
 	var resp respMessageSend
 	var err error
 	if isCustomerServiceChatSendRequest {
-		fmt.Println("customer service chat send request")
 		resp, err = c.execCustomerServicechatSend(req)
 	} else if isApichatSendRequest {
-		fmt.Println("api chat send request")
 		resp, err = c.execAppchatSend(req)
 	} else {
-		fmt.Println("message send request")
 		resp, err = c.execMessageSend(req)
 	}
 
