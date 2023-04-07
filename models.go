@@ -1346,7 +1346,19 @@ type KFSyncMsgDetail struct {
 		Image struct {
 			MediaId string `json:"media_id"`
 		} `json:"image,omitempty"`
-		// 当  msgtype 为 event 时，图片消息
+		// 当 msgtype 为 voice 时，语音消息
+		Voice struct {
+			MediaId string `json:"media_id"`
+		} `json:"voice,omitempty"`
+		// 当 msgtype 为 file 时，文件消息
+		File struct {
+			MediaId string `json:"media_id"`
+		} `json:"file,omitempty"`
+		// 当 msgtype 为 video 时，视频消息
+		Video struct {
+			MediaId string `json:"media_id"`
+		} `json:"video,omitempty"`
+		// 当  msgtype 为 event 时，事件消息
 		Event struct {
 			EventType      string `json:"event_type"`
 			OpenKfid       string `json:"open_kfid"`

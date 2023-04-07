@@ -716,6 +716,7 @@ func (c *WorkwxApp) execAddMsgTemplate(req reqAddMsgTemplateExternalContact) (re
 	return resp, nil
 }
 
+// execKFSyncMsg 获取客服消息
 func (c *WorkwxApp) execKFSyncMsg(req reqKFSyncMsgContact) (respKFSyncMsgContact, error) {
 	var resp respKFSyncMsgContact
 	err := c.executeQyapiJSONPost("/cgi-bin/kf/sync_msg", req, &resp, true)
