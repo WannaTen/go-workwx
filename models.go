@@ -1360,7 +1360,7 @@ type KFSyncMsgDetail struct {
 		} `json:"video,omitempty"`
 		// 当 msgtype 为 link 时，链接消息
 		Link struct {
-			MediaId string `json:"URL"`
+			URL string `json:"url"`
 		} `json:"link,omitempty"`
 		// 当  msgtype 为 event 时，事件消息
 		Event struct {
