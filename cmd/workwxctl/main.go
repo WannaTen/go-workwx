@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/whyiyhw/go-workwx/cmd/workwxctl/commands"
+	"github.com/WannaTen/go-workwx/cmd/workwxctl/commands"
 )
 
 func main() {

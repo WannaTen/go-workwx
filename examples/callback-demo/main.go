@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/whyiyhw/go-workwx"
+	"github.com/WannaTen/go-workwx"
 )
 
 type dummyRxMessageHandler struct{}

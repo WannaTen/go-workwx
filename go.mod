@@ -1,4 +1,4 @@
-module github.com/whyiyhw/go-workwx
+module github.com/WannaTen/go-workwx
 
 go 1.17
 

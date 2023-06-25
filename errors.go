@@ -3,7 +3,7 @@ package workwx
 import (
 	"fmt"
 
-	"github.com/whyiyhw/go-workwx/errcodes"
+	"github.com/WannaTen/go-workwx/errcodes"
 )
 
 // WorkwxClientError 企业微信客户端 SDK 的响应错误
